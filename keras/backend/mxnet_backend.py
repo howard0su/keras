@@ -1151,11 +1151,7 @@ def pow(x, a):
     # Returns
         A tensor.
     """
-    if isinstance(x, KerasSymbol):
-        x = x.symbol
-    if isinstance(a, KerasSymbol):
-        a = a.symbol
-    return KerasSymbol(mx.sym.pow(base=x, exp=a))
+    return KerasSymbol(mx.sym.pow(base=x.symbol, exp=a.symbol))
 
 
 def clip(x, min_value, max_value):
@@ -1164,10 +1160,6 @@ def clip(x, min_value, max_value):
     # Returns
         A tensor.
     """
-    if max_value is not None and max_value < min_value:
-        max_value = min_value
-    if max_value is None:
-        max_value = np.inf
     return KerasSymbol(mx.sym.clip(src=x.symbol, a_min=min_value, a_max=max_value))
 
 
