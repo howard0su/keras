@@ -316,7 +316,7 @@ def shape(x):
     """
     #   if hasattr(x, '_keras_shape'):
     #       return tuple([0 if x is None else x for x in x._keras_shape])
-    if isinstance(x, KerasSymbol):
+    if isinstance(x, KerasSymbol) or isinstance(x, KerasTensor):
         return x.get_shape()
     else:
         return None
@@ -373,10 +373,8 @@ def ndim(x):
     ```
     """
     s = shape(x)
-    if s is None:
-        return None
-    else:
-        return len(s)
+    assert s
+    return len(s)
 
 
 def dtype(x):
@@ -431,13 +429,13 @@ def eval(x):
     if isinstance(x, KerasTensor):
         return x.tensor.asnumpy()
     elif isinstance(x, KerasSymbol):
-        executor = x.symbol.simple_bind(mx.cpu())
+        executor = x.symbol.simple_bind(mx.cpu(), grad_req='null')
         for v in executor.arg_dict:
             _bind_values[v].copyto(executor.arg_dict[v])
         outputs = executor.forward(is_train=_LEARNING_PHASE)
         return outputs[0].asnumpy()
     else:
-        raise ValueError('value is not supported')
+        return x
 
 
 def zeros(shape, dtype=None, name=None):
@@ -767,8 +765,6 @@ def dot(x, y):
         (2, 4, 5)
     ```
     """
-    print(x.symbol)
-    print(y.symbol)
     return KerasSymbol(mx.sym.dot(lhs=x.symbol, rhs=y.symbol))
 
 
@@ -905,6 +901,7 @@ def max(x, axis=None, keepdims=False):
     # Returns
         A tensor with maximum values of `x`.
     """
+    axis = _normalize_axis(axis, ndim(x))
     return KerasSymbol(mx.sym.max(data=x.symbol, axis=axis, keepdims=keepdims))
 
 
@@ -1536,8 +1533,11 @@ def set_value(x, value):
     """Sets the value of a variable,
     from a Numpy array. It returns `None`.
     """
-    raise NotImplementedError
-
+    if isinstance(x, KerasTensor):
+        x.tensor = mx.nd.array(x)
+    else:
+        x = value
+    return None
 
 def batch_set_value(tuples):
     """Sets the values of many tensor variables at once.
