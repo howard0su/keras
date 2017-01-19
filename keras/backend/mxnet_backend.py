@@ -1319,6 +1319,7 @@ def concatenate(tensors, axis=-1):
         A tensor.
     """
     axis = _normalize_axis(axis, ndim(tensors[0]))
+    tensors = [t.symbol for t in tensors]
     return KerasSymbol(mx.sym.Concat(*tensors, dim=axis))
 
 
