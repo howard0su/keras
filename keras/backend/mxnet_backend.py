@@ -1304,8 +1304,7 @@ def sqrt(x):
     # Returns
         A tensor.
     """
-    ret = mx.sym.Activation(data=x.symbol,
-                                act_type='relu')
+    ret = mx.sym.Activation(data=x.symbol, act_type='relu')
     ret = mx.sym.sqrt(data=ret)
     return KerasSymbol(ret)
 
