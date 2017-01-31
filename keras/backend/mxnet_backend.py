@@ -207,83 +207,53 @@ class KerasSymbol(object):
     #                 lhs=self.symbol,
     #                 rhs=other.symbol), self, other)
 
-    # def __gt__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(self.symbol > other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_greater(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
+    def __gt__(self, other):
+         if isinstance(other, Number):
+             return KerasSymbol(self.symbol > other)
+         else:
+             return KerasSymbol(
+                 mx.sym.broadcast_greater(
+                     lhs=self.symbol,
+                     rhs=other.symbol))
 
-    # def __ge__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(self.symbol >= other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_greater_equal(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
+    def __ge__(self, other):
+         if isinstance(other, Number):
+             return KerasSymbol(self.symbol >= other)
+         else:
+             return KerasSymbol(
+                 mx.sym.broadcast_greater_equal(
+                     lhs=self.symbol,
+                     rhs=other.symbol))
 
-    # def __lt__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol < other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_lesser(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
+    def __lt__(self, other):
+         if isinstance(other, Number):
+             return KerasSymbol(
+                 self.symbol < other)
+         else:
+             return KerasSymbol(
+                 mx.sym.broadcast_lesser(
+                    lhs=self.symbol,
+                     rhs=other.symbol))
 
-    # def __le__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol <= other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_lesser_equal(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
+    def __le__(self, other):
+         if isinstance(other, Number):
+             return KerasSymbol(
+                 self.symbol <= other)
+         else:
+             return KerasSymbol(
+                 mx.sym.broadcast_lesser_equal(
+                     lhs=self.symbol,
+                     rhs=other.symbol))
 
-    # def __gt__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol > other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_greater(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
-
-    # def __ge__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol >= other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_greater_equal(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
-
-    # def __lt__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol < other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_lesser(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
-
-    # def __le__(self, other):
-    #     if isinstance(other, Number):
-    #         return KerasSymbol(
-    #             self.symbol <= other)
-    #     else:
-    #         return KerasSymbol(
-    #             mx.sym.broadcast_lesser_equal(
-    #                 lhs=self.symbol,
-    #                 rhs=other.symbol))
+    def __gt__(self, other):
+         if isinstance(other, Number):
+             return KerasSymbol(
+                 self.symbol > other)
+         else:
+             return KerasSymbol(
+                 mx.sym.broadcast_greater(
+                     lhs=self.symbol,
+                     rhs=other.symbol))
 
     def __pow__(self, power, modulo=None):
         return KerasSymbol(self.symbol.__pow__(power))
