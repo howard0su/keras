@@ -1838,7 +1838,7 @@ if K.backend() == 'mxnet':
                     for s, x in zip(self.inputs, inputs[:self._num_data])]
             if self._num_data < len(inputs):
                 label = [K.mx.nd.array(x, dtype=s.dtype)
-                        for s, x in zip(self.targets + self.sample_weights, inputs[self._num_data:])]
+                         for s, x in zip(self.targets + self.sample_weights, inputs[self._num_data:])]
             else:
                 label = None
 
