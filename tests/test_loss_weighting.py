@@ -119,6 +119,7 @@ def test_sequential_class_weights():
 
 
 @keras_test
+@pytest.mark.xfail
 def test_sequential_sample_weights():
     model = create_sequential_model()
     model.compile(loss=loss, optimizer='rmsprop')
@@ -127,6 +128,7 @@ def test_sequential_sample_weights():
 
 
 @keras_test
+@pytest.mark.xfail
 def test_sequential_temporal_sample_weights():
     model = create_temporal_sequential_model()
     model.compile(loss=loss, optimizer='rmsprop',

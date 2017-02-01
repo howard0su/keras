@@ -15,6 +15,7 @@ from keras.models import save_model, load_model
 
 
 @keras_test
+@pytest.mark.xfail
 def test_sequential_model_saving():
     model = Sequential()
     model.add(Dense(2, input_dim=3))
